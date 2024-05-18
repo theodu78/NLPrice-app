@@ -1,0 +1,10 @@
+streamlit==1.18.1
+PyPDF2==3.0.1
+python-dotenv==1.0.0
+tabula-py==2.4.0
+langchain==0.0.154
+pinecone-client==4.1.0
+altair==4.2.0
+openai==0.27.0
+setuptools==65.5.1
+tiktoken==0.7.0
