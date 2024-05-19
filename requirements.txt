@@ -11,4 +11,4 @@ tiktoken==0.7.0
 pandas==2.2.2
 camelot-py[cv]
 opencv-python
-Ghostscript
+SQLAlchemy==2.0.9
