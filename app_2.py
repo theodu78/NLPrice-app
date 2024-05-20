@@ -5,6 +5,7 @@ from normalize_data import normalize_data
 from store_2 import store_data_in_db
 import tempfile
 import os
+import subprocess
 
 st.title("Extraction, Normalisation et Stockage de données PDF")
 
@@ -42,17 +43,26 @@ if uploaded_file is not None:
                 mime='text/csv',
             )
             
-
             # Sauvegarder le fichier normalisé CSV dans un fichier temporaire
             with tempfile.NamedTemporaryFile(delete=False, suffix=".csv") as temp_csv_file:
                 temp_csv_file.write(csv)
                 temp_csv_file_path = temp_csv_file.name
             
-            # Bouton pour envoyer les données vers la base de données
-            if st.button("Envoyer les Données vers la Base de Données"):
+            # Bouton pour envoyer les données vers la base de données et Pinecone
+            if st.button("Envoyer les Données vers la Base de Données et Pinecone"):
                 with st.spinner("Envoi en cours..."):
+                    # Envoyer les données vers la base de données SQL
                     store_data_in_db(temp_csv_file_path)
-                    st.success("Données envoyées vers la base de données avec succès!")
+                    
+                    # Appeler store.py pour envoyer les données vers Pinecone
+                    result = subprocess.run(["python", "store.py", temp_csv_file_path], capture_output=True, text=True)
+                    st.write(result.stdout)
+                    st.write(result.stderr)
+                    
+                    if result.returncode == 0:
+                        st.success("Données envoyées vers la base de données et Pinecone avec succès!")
+                    else:
+                        st.error("Une erreur s'est produite lors de l'envoi des données vers Pinecone.")
                     
                     # Optionnel : supprimer le fichier temporaire CSV après envoi des données
                     os.remove(temp_csv_file_path)
