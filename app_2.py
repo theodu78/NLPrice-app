@@ -16,7 +16,6 @@ if uploaded_file is not None:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
         temp_file.write(uploaded_file.read())
         temp_file_path = temp_file.name
-        st.write(f"Fichier temporaire sauvegardé à: {temp_file_path}")
     
     # Extraire les données du fichier PDF temporaire
     extracted_data = extract_data_from_pdf(temp_file_path)
