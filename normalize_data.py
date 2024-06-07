@@ -39,9 +39,9 @@ def call_openai_agent(data):
     12. Pour identifier facilement le tableau CSV dans la réponse, ajoute un caret (^) au début et à la fin du tableau CSV. Le résultat final doit être encadré par des carets (^) comme indiqué ci-dessous :
 
     ^
-    designation,unit,unit_price
-    article_1,unit_1,unit_price_1
-    article_2,unit_2,unit_price_2
+    "designation","unit","unit_price"
+    "article_1","unit_1","unit_price_1"
+    "article_2","unit_2","unit_price_2"
     ...
     ^
 
